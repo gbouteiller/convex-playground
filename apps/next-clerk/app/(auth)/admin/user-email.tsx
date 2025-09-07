@@ -1,7 +1,7 @@
 "use client";
 
+import type { api } from "@cvx/clerk/convex/_generated/api";
 import { type Preloaded, usePreloadedQuery } from "convex/react";
-import type { api } from "@/convex/_generated/api";
 
 // ROOT ************************************************************************************************************************************
 export function UserEmail({ preloaded }: UserEmailProps) {

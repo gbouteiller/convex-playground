@@ -1,9 +1,9 @@
 import { SignOutButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
+import { api } from "@cvx/clerk/convex/_generated/api";
 import { preloadQuery } from "convex/nextjs";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { api } from "@/convex/_generated/api";
 import { UserEmail } from "./user-email";
 
 // ROOT ************************************************************************************************************************************

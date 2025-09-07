@@ -260,6 +260,9 @@ importers:
       '@clerk/nextjs':
         specifier: ^6.31.9
         version: 6.31.9(next@15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      '@cvx/clerk':
+        specifier: workspace:*
+        version: link:../../packages/convex-clerk
       '@hookform/resolvers':
         specifier: ^5.2.1
         version: 5.2.1(react-hook-form@7.62.0(react@19.1.1))
