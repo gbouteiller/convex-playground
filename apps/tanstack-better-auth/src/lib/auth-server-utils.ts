@@ -1,4 +1,4 @@
-import { reactStartHelpers } from "@cvx/better-auth/auth/react-start";
+import { reactStartHelpers } from "@convex-dev/better-auth/react-start";
 import { createAuth } from "@cvx/better-auth/auth/server";
 
 export const { fetchSession, reactStartHandler, getCookieName } = reactStartHelpers(createAuth, {

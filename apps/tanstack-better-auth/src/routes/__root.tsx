@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 
-import { authClient, ConvexBetterAuthProvider } from "@cvx/better-auth/auth/client";
+import { authClient } from "@cvx/better-auth/auth/client";
 import { createRootRouteWithContext, HeadContent, Link, Outlet, Scripts } from "@tanstack/react-router";
 import type { ConvexHttpClient } from "convex/browser";
 import type { ConvexReactClient } from "convex/react";
@@ -8,11 +8,12 @@ import { Button } from "@/components/ui/button";
 import { ThemeProvider } from "@/lib/theme";
 import appCss from "@/styles/app.css?url";
 import "@fontsource/geist-sans";
+import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
 
 // ROUTE ***********************************************************************************************************************************
 export const Route = createRootRouteWithContext<{ convex: ConvexReactClient; convexServer: ConvexHttpClient }>()({
 	head: () => ({
-		meta: [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, { title: "tanstack-betterauth" }],
+		meta: [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, { title: "tanstack-better-auth" }],
 		links: [
 			{ rel: "stylesheet", href: appCss },
 			{ rel: "icon", href: "/convex.svg" },
