@@ -1,0 +1,21 @@
+{
+  "name": "@cvx/workos",
+  "version": "1.0.0",
+  "type": "module",
+  "sideEffects": false,
+  "scripts": {
+    "dev": "convex dev",
+    "setup": "convex dev --until-success"
+  },
+  "exports": {
+    "./auth/*": "./src/auth/*.ts",
+    "./convex/*": "./src/convex/*.js"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "convex": "^1.26.2"
+  },
+  "peerDependencies": {
+    "convex": "^1.26.2"
+  }
+}
