@@ -669,7 +669,7 @@ importers:
         version: 1.131.35(@tanstack/react-router@1.131.35(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@vercel/functions@2.2.13)(@vitejs/plugin-react@5.0.2(vite@7.1.4(@types/node@24.3.1)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.44.0)(tsx@4.20.5)))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(rolldown@1.0.0-beta.35)(vite@7.1.4(@types/node@24.3.1)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.44.0)(tsx@4.20.5))
       '@workos-inc/node':
         specifier: ^7.69.2
-        version: 7.69.2(next@15.5.2(@babel/core@7.28.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
+        version: 7.69.2(next@15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -733,16 +733,20 @@ importers:
         version: 5.1.4(typescript@5.9.2)(vite@7.1.4(@types/node@24.3.1)(jiti@2.5.1)(lightningcss@1.30.1)(terser@5.44.0)(tsx@4.20.5))
 
   packages/convex-betterauth:
+    dependencies:
+      zod:
+        specifier: ^4.1.5
+        version: 4.1.5
     devDependencies:
       '@convex-dev/better-auth':
         specifier: ^0.7.17
-        version: 0.7.17(better-auth@1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@3.25.76))(convex@1.26.2(@clerk/clerk-react@5.46.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
+        version: 0.7.17(better-auth@1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.1.5))(convex@1.26.2(@clerk/clerk-react@5.46.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)
       '@types/node':
         specifier: ^24.3.1
         version: 24.3.1
       better-auth:
         specifier: 1.3.7
-        version: 1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@3.25.76)
+        version: 1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.1.5)
       convex:
         specifier: ^1.26.2
         version: 1.26.2(@clerk/clerk-react@5.46.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
@@ -6558,22 +6562,6 @@ snapshots:
     optionalDependencies:
       react: 19.1.1
 
-  '@convex-dev/better-auth@0.7.17(better-auth@1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@3.25.76))(convex@1.26.2(@clerk/clerk-react@5.46.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)':
-    dependencies:
-      better-auth: 1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@3.25.76)
-      common-tags: 1.8.2
-      convex: 1.26.2(@clerk/clerk-react@5.46.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1)
-      convex-helpers: 0.1.104(convex@1.26.2(@clerk/clerk-react@5.46.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1))(react@19.1.1)(typescript@5.9.2)(zod@3.25.76)
-      is-network-error: 1.1.0
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
-      type-fest: 4.41.0
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - '@standard-schema/spec'
-      - hono
-      - typescript
-
   '@convex-dev/better-auth@0.7.17(better-auth@1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.1.5))(convex@1.26.2(@clerk/clerk-react@5.46.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.2)':
     dependencies:
       better-auth: 1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.1.5)
@@ -8365,7 +8353,7 @@ snapshots:
 
   '@workos-inc/authkit-nextjs@2.6.0(next@15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
-      '@workos-inc/node': 7.69.2(next@15.5.2(@babel/core@7.28.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
+      '@workos-inc/node': 7.69.2(next@15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       iron-session: 8.0.4
       jose: 5.10.0
       next: 15.5.2(@babel/core@7.28.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
@@ -8381,9 +8369,9 @@ snapshots:
       '@workos-inc/authkit-js': 0.13.0
       react: 19.1.1
 
-  '@workos-inc/node@7.69.2(next@15.5.2(@babel/core@7.28.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))':
+  '@workos-inc/node@7.69.2(next@15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))':
     dependencies:
-      iron-session: 6.3.1(next@15.5.2(@babel/core@7.28.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
+      iron-session: 6.3.1(next@15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
       jose: 5.6.3
       leb: 1.0.0
       pluralize: 8.0.0
@@ -8637,24 +8625,6 @@ snapshots:
   base-64@1.0.0: {}
 
   base64-js@1.5.1: {}
-
-  better-auth@1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@3.25.76):
-    dependencies:
-      '@better-auth/utils': 0.2.6
-      '@better-fetch/fetch': 1.1.18
-      '@noble/ciphers': 0.6.0
-      '@noble/hashes': 1.8.0
-      '@simplewebauthn/browser': 13.1.2
-      '@simplewebauthn/server': 13.1.2
-      better-call: 1.0.18
-      defu: 6.1.4
-      jose: 5.10.0
-      kysely: 0.28.5
-      nanostores: 0.11.4
-      zod: 3.25.76
-    optionalDependencies:
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
 
   better-auth@1.3.7(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(zod@4.1.5):
     dependencies:
@@ -9720,7 +9690,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  iron-session@6.3.1(next@15.5.2(@babel/core@7.28.4)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)):
+  iron-session@6.3.1(next@15.5.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1)):
     dependencies:
       '@peculiar/webcrypto': 1.5.0
       '@types/cookie': 0.5.4
