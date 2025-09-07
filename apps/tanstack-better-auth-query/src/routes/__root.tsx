@@ -5,8 +5,9 @@ import type { ConvexReactClient } from "convex/react";
 import { Button } from "@/components/ui/button";
 import appCss from "@/styles/app.css?url";
 import "@fontsource/geist-sans";
+import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
 import type { ConvexQueryClient } from "@convex-dev/react-query";
-import { authClient, ConvexBetterAuthProvider } from "@cvx/better-auth/auth/client";
+import { authClient } from "@cvx/better-auth/auth/client";
 import type { QueryClient } from "@tanstack/react-query";
 import { ThemeProvider } from "@/lib/theme";
 
@@ -20,7 +21,7 @@ export const Route = createRootRouteWithContext<{
 		meta: [
 			{ charSet: "utf-8" },
 			{ name: "viewport", content: "width=device-width, initial-scale=1" },
-			{ title: "tanstack-betterauth-query" },
+			{ title: "tanstack-better-auth-query" },
 		],
 		links: [
 			{ rel: "stylesheet", href: appCss },
