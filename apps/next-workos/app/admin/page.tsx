@@ -1,7 +1,7 @@
+import { api } from "@cvx/workos/convex/_generated/api";
 import { signOut, withAuth } from "@workos-inc/authkit-nextjs";
 import { preloadQuery } from "convex/nextjs";
 import { Button } from "@/components/ui/button";
-import { api } from "@/convex/_generated/api";
 import { UserEmail } from "./user-email";
 
 // ROOT ************************************************************************************************************************************
