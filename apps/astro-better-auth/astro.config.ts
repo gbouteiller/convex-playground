@@ -8,7 +8,7 @@ export default defineConfig({
 		plugins: [tailwindcss()],
 	},
 	integrations: [react()],
-	adapter: vercel({}),
+	adapter: vercel({ edgeMiddleware: false }),
 	output: "server",
 	env: {
 		schema: {
