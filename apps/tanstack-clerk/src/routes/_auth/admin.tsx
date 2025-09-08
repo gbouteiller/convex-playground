@@ -1,9 +1,9 @@
 import { SignOutButton } from "@clerk/tanstack-react-start";
 import { getAuth } from "@clerk/tanstack-react-start/server";
+import { api } from "@cvx/clerk/convex/_generated/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest } from "@tanstack/react-start/server";
-import { api } from "convex/_generated/api";
 import { usePreloadedQuery } from "convex/react";
 import { Button } from "@/components/ui/button";
 import { preloadQuery } from "@/lib/convex";

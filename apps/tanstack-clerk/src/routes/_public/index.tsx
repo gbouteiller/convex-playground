@@ -1,5 +1,5 @@
+import { api } from "@cvx/clerk/convex/_generated/api";
 import { createFileRoute } from "@tanstack/react-router";
-import { api } from "convex/_generated/api";
 
 // ROUTE ***********************************************************************************************************************************
 export const Route = createFileRoute("/_public/")({
