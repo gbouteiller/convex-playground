@@ -1,7 +1,7 @@
 "use client";
 
+import type { api } from "@cvx/better-auth/convex/_generated/api";
 import { type Preloaded, usePreloadedQuery } from "convex/react";
-import type { api } from "@/convex/_generated/api";
 import { withConvex } from "@/lib/convex";
 
 // ROOT ************************************************************************************************************************************

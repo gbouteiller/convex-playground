@@ -14,7 +14,8 @@ export default defineConfig({
 		schema: {
 			PUBLIC_CONVEX_SITE_URL: envField.string({ context: "client", access: "public" }),
 			PUBLIC_CONVEX_URL: envField.string({ context: "client", access: "public" }),
-			SITE_URL: envField.string({ context: "client", access: "public" }),
+			CONVEX_DEPLOYMENT: envField.string({ context: "server", access: "public" }),
+			SITE_URL: envField.string({ context: "server", access: "public" }),
 		},
 	},
 });

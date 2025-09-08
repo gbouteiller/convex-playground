@@ -1,7 +1,7 @@
 import { JWT_COOKIE_NAME } from "@convex-dev/better-auth/plugins";
+import { createAuth } from "@cvx/better-auth/auth/server";
 import type { AstroCookies } from "astro";
 import { createCookieGetter, getCookies, parseSetCookieHeader } from "better-auth/cookies";
-import { createAuth } from "./server";
 
 export function authOptions() {
 	return createAuth({} as any).options;

@@ -6,9 +6,7 @@ import Layout from "./_layout.astro";
 
 const result = Astro.getActionResult(actions.signIn);
 console.log("result: ", result);
-// if (result?.data) return Astro.redirect(`/admin`);
-
-let flow = "signIn";
+if (result?.data) return Astro.redirect(`/admin`);
 ---
 
 <Layout>
@@ -17,19 +15,13 @@ let flow = "signIn";
 				<Input type="email" name="email" placeholder="Email" />
 				<Input type="password" name="password" placeholder="Password" />
 				<Button type="submit" className="cursor-pointer">
-					{flow === "signIn" ? "Sign in" : "Sign up"}
+					Sign in
 				</Button>
-				<div class="flex gap-2">
-					<span>{flow === "signIn" ? "Don't have an account?" : "Already have an account?"}</span>
-					<Button variant="link">
-						{flow === "signIn" ? "Sign up instead" : "Sign in instead"}
-					</Button>
-				</div>
-				<!-- {result?.error && (
+				{result?.error && (
 					<div class="bg-red-500/20 border-2 border-red-500/50 rounded-md p-2">
 						<p class="text-foreground font-mono text-xs">Error signing in: {result.error}</p>
 					</div>
-				)} -->
+				)}
 			</form>
 		</div>
 </Layout>
