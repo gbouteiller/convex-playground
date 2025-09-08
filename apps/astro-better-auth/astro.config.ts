@@ -1,5 +1,5 @@
 import react from "@astrojs/react";
-import vercel from "@astrojs/vercel";
+import vercel from "@astrojs/vercel/serverless";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, envField } from "astro/config";
 
@@ -8,7 +8,7 @@ export default defineConfig({
 		plugins: [tailwindcss()],
 	},
 	integrations: [react()],
-	adapter: vercel(),
+	adapter: vercel({}),
 	output: "server",
 	env: {
 		schema: {
