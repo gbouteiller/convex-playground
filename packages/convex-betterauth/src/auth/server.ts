@@ -23,7 +23,13 @@ export const createAuth = (ctx: GenericCtx) =>
 			// The Convex plugin is required
 			convex(),
 		],
-		trustedOrigins: ["http://localhost:3000", "https://next-better-auth-tau.vercel.app","https://tanstack-better-auth.vercel.app", "https://tanstack-better-auth-query.vercel.app"],
+		trustedOrigins: [
+			"http://localhost:3000",
+			"https://astro-better-auth.vercel.app",
+			"https://next-better-auth-tau.vercel.app",
+			"https://tanstack-better-auth.vercel.app",
+			"https://tanstack-better-auth-query.vercel.app",
+		],
 		advanced: {
 			useSecureCookies: true,
 		},
