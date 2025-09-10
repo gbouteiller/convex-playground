@@ -1,6 +1,6 @@
+import { api } from "@cvx/workos/convex/_generated/api";
 import { createFileRoute } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { api } from "convex/_generated/api";
 import { useQuery } from "convex/react";
 import { getFunctionName, makeFunctionReference } from "convex/server";
 import { convexToJson, jsonToConvex } from "convex/values";

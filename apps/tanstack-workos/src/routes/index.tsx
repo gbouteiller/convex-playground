@@ -1,5 +1,5 @@
+import { api } from "@cvx/workos/convex/_generated/api";
 import { createFileRoute } from "@tanstack/react-router";
-import { api } from "convex/_generated/api";
 
 export const Route = createFileRoute("/")({
 	component: Home,
