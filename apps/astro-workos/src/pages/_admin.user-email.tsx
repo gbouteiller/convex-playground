@@ -1,8 +1,8 @@
 "use client";
 
-import { withConvex } from "@/lib/provider";
 import type { api } from "@cvx/workos/convex/_generated/api";
 import { type Preloaded, usePreloadedQuery } from "convex/react";
+import { withConvex } from "@/lib/provider";
 
 // ROOT ************************************************************************************************************************************
 export const UserEmail = withConvex(({ preloaded }: UserEmailProps) => {
