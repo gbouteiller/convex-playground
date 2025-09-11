@@ -2,7 +2,7 @@ import react from "@astrojs/react";
 import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 import clerk from "@clerk/astro";
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, fontProviders } from "astro/config";
 
 export default defineConfig({
 	vite: {
@@ -19,4 +19,11 @@ export default defineConfig({
 			CONVEX_DEPLOYMENT: envField.string({ context: "server", access: "secret" }),
 		},
 	},
+	experimental: {
+		fonts: [{
+			provider: fontProviders.fontsource(),
+			name: "Geist Sans",
+			cssVariable: "--font-sans"
+		}]
+    }
 });

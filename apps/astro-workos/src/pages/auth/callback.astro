@@ -1,0 +1,29 @@
+---
+import { PUBLIC_WORKOS_CLIENT_ID } from "astro:env/client";
+import { WORKOS_COOKIE_PASSWORD } from "astro:env/server";
+
+const code = Astro.url.searchParams.get("code");
+
+if (!code) {
+	Astro.response.status = 400;
+	Astro.response.statusText = "No code provided";
+	return Astro.redirect("/");
+}
+
+try {
+	const { sealedSession } = await Astro.locals.auth.client.userManagement.authenticateWithCode({
+		clientId: PUBLIC_WORKOS_CLIENT_ID,
+		code,
+		session: { sealSession: true, cookiePassword: WORKOS_COOKIE_PASSWORD },
+	});
+
+	console.log("CALLBACK setting cookie");
+
+	Astro.cookies.set("wos-session", sealedSession as string, { path: "/", httpOnly: true, secure: true, sameSite: "lax" });
+
+	return Astro.redirect("/admin");
+} catch (error) {
+	console.error("error", error);
+	return Astro.redirect("/signin");
+}
+---

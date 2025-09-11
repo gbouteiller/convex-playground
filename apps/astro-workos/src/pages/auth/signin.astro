@@ -1,0 +1,10 @@
+---
+import { PUBLIC_WORKOS_CLIENT_ID, PUBLIC_WORKOS_REDIRECT_URI } from "astro:env/client";
+
+const authorizationUrl = Astro.locals.auth.client.userManagement.getAuthorizationUrl({
+	provider: "authkit",
+	redirectUri: PUBLIC_WORKOS_REDIRECT_URI,
+	clientId: PUBLIC_WORKOS_CLIENT_ID,
+});
+return Astro.redirect(authorizationUrl);
+---

@@ -1,0 +1,23 @@
+---
+import { PUBLIC_WORKOS_LOGOUT_REDIRECT } from "astro:env/client";
+import { WORKOS_COOKIE_PASSWORD } from "astro:env/server";
+
+const cookie = Astro.cookies.get("wos-session");
+
+if (!cookie) {
+	Astro.response.status = 400;
+	Astro.response.statusText = "No code provided";
+	return Astro.redirect("/");
+}
+
+const session = Astro.locals.auth.client.userManagement.loadSealedSession({
+	sessionData: cookie.value,
+	cookiePassword: WORKOS_COOKIE_PASSWORD,
+});
+
+const url = await session.getLogoutUrl({ returnTo: PUBLIC_WORKOS_LOGOUT_REDIRECT });
+
+Astro.cookies.delete("wos-session", { path: "/" });
+
+return Astro.redirect(url);
+---

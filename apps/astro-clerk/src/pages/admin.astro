@@ -1,0 +1,27 @@
+---
+import { api } from "@cvx/clerk/convex/_generated/api";
+import { Button } from "@/components/ui/button";
+import { UserEmail } from "./_admin.user-email";
+import Layout from "./_layout.astro";
+import { SignOutButton } from "@clerk/astro/components";
+// import {} from "@clerk/astro/server"
+
+// const token = await Astro.locals.auth.getToken();
+// if (!token) return Astro.redirect("/signin");
+
+// const isAuthenticated = await Astro.locals.convex.fetchQuery(api.auth.isAuthenticated, {}, { token });
+// if (!isAuthenticated) return Astro.redirect("/signin");
+
+// const preloaded = await Astro.locals.convex.preloadQuery(api.auth.getUserEmail, {}, { token });
+---
+
+<Layout>
+  <div class="flex flex-col gap-2">
+    <!-- <UserEmail client:load preloaded={preloaded} /> -->
+    <SignOutButton>
+			<Button variant="secondary" className="cursor-pointer">
+				Sign out
+			</Button>
+		</SignOutButton>
+  </div>
+</Layout>

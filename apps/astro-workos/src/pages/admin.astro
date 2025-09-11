@@ -1,0 +1,25 @@
+---
+import { api } from "@cvx/workos/convex/_generated/api";
+import { Button } from "@/components/ui/button";
+import { UserEmail } from "./_admin.user-email";
+import {} from "@workos-inc/node";
+import Layout from "./_layout.astro";
+
+const token = Astro.locals.auth.accessToken
+// const token = await Astro.locals.auth.getToken();
+if (!token) return Astro.redirect("/signin");
+
+// const isAuthenticated = await Astro.locals.convex.fetchQuery(api.auth.isAuthenticated, {}, { token });
+// if (!isAuthenticated) return Astro.redirect("/signin");
+
+const preloaded = await Astro.locals.convex.preloadQuery(api.auth.getUserEmail, {}, { token });
+---
+
+<Layout>
+  <div class="flex flex-col gap-2">
+    <UserEmail client:load preloaded={preloaded} />
+		<Button type="submit" variant="secondary" className="cursor-pointer">
+			<a href="/auth/signout" data-astro-prefetch="false" class="w-full">Sign out</a>
+		</Button>
+  </div>
+</Layout>
