@@ -4,7 +4,7 @@ import { AuthKitProvider, useAuth } from "@workos-inc/authkit-react";
 import { ConvexReactClient } from "convex/react";
 import type { ComponentType, JSX } from "react";
 
-const client = new ConvexReactClient(PUBLIC_CONVEX_URL, { expectAuth: true });
+const client = new ConvexReactClient(PUBLIC_CONVEX_URL, { expectAuth: true, verbose: true });
 
 export function withConvex<Props>(Component: ComponentType<Props>) {
 	return (props: Props & JSX.IntrinsicAttributes) => (
