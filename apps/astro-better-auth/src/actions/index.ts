@@ -1,12 +1,12 @@
 import { defineAction } from "astro:actions";
-import { z } from "astro:schema";
+// import { z } from "astro:schema";
 // import { api } from "@cvx/better-auth/convex/_generated/api";
 // import { deleteCookies, getToken, setCookies } from "@/lib/auth/utils";
 
 export const server = {
 	signIn: defineAction({
 		accept: "form",
-		input: z.object({ email: z.string(), password: z.string() }),
+		// input: z.object({ email: z.string(), password: z.string() }),
 		handler: async (input, { cookies, locals: { convex } }) => {
 			console.log("ACTION - signIn: ", input);
 			return true;
