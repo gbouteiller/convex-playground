@@ -1,7 +1,7 @@
-import { ActionError, defineAction } from "astro:actions";
+import { defineAction } from "astro:actions";
 import { z } from "astro:schema";
-import { api } from "@cvx/better-auth/convex/_generated/api";
-import { deleteCookies, getToken, setCookies } from "@/lib/auth/utils";
+// import { api } from "@cvx/better-auth/convex/_generated/api";
+// import { deleteCookies, getToken, setCookies } from "@/lib/auth/utils";
 
 export const server = {
 	signIn: defineAction({
@@ -9,21 +9,22 @@ export const server = {
 		input: z.object({ email: z.string(), password: z.string() }),
 		handler: async (input, { cookies, locals: { convex } }) => {
 			console.log("ACTION - signIn: ", input);
-			try {
-				const cookieHeader = await convex.fetchMutation(api.auth.signIn, input);
-				return setCookies(cookies, cookieHeader);
-			} catch (error) {
-				console.error(error);
-				throw new ActionError({ code: "BAD_REQUEST", message: "Unknown error" });
-			}
+			return true;
+			// try {
+			// 	const cookieHeader = await convex.fetchMutation(api.auth.signIn, input);
+			// 	return setCookies(cookies, cookieHeader);
+			// } catch (error) {
+			// 	console.error(error);
+			// 	throw new ActionError({ code: "BAD_REQUEST", message: "Unknown error" });
+			// }
 		},
 	}),
-	signOut: defineAction({
-		accept: "form",
-		handler: async (_, { cookies, locals: { convex } }) => {
-			const token = await getToken(cookies);
-			await convex.fetchMutation(api.auth.signOut, {}, { token });
-			return deleteCookies(cookies);
-		},
-	}),
+	// signOut: defineAction({
+	// 	accept: "form",
+	// 	handler: async (_, { cookies, locals: { convex } }) => {
+	// 		const token = await getToken(cookies);
+	// 		await convex.fetchMutation(api.auth.signOut, {}, { token });
+	// 		return deleteCookies(cookies);
+	// 	},
+	// }),
 };
