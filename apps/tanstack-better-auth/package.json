@@ -17,8 +17,8 @@
     "@cvx/better-auth": "workspace:*",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/postcss": "^4.1.13",
-    "@tanstack/react-router": "^1.131.37",
-    "@tanstack/react-start": "^1.131.37",
+    "@tanstack/react-router": "^1.131.41",
+    "@tanstack/react-start": "^1.131.41",
     "better-auth": "1.3.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -30,7 +30,7 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.13",
     "vite": "^7.1.5",
-    "zod": "^4.1.7"
+    "zod": "^4.1.8"
   },
   "devDependencies": {
     "@fontsource/geist-sans": "^5.2.5",
