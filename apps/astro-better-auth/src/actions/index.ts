@@ -19,12 +19,12 @@ export const server = {
 			// }
 		},
 	}),
-	// signOut: defineAction({
-	// 	accept: "form",
-	// 	handler: async (_, { cookies, locals: { convex } }) => {
-	// 		const token = await getToken(cookies);
-	// 		await convex.fetchMutation(api.auth.signOut, {}, { token });
-	// 		return deleteCookies(cookies);
-	// 	},
-	// }),
+	signOut: defineAction({
+		accept: "form",
+		handler: async (_, { cookies, locals: { convex } }) => {
+			// const token = await getToken(cookies);
+			// await convex.fetchMutation(api.auth.signOut, {}, { token });
+			// return deleteCookies(cookies);
+		},
+	}),
 };
