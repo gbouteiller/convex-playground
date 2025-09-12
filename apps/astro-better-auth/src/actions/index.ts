@@ -1,6 +1,6 @@
 import { ActionError, defineAction } from "astro:actions";
 import { z } from "astro:schema";
-import { api } from "@cvx/better-auth/convex/_generated/api";
+// import { api } from "@cvx/better-auth/convex/_generated/api";
 // import { deleteCookies, getToken, setCookies } from "@/lib/auth/utils";
 
 export const server = {
@@ -10,7 +10,7 @@ export const server = {
 		handler: async (input, { cookies, locals: { convex } }) => {
 			console.log("ACTION - signIn: ", input);
 			try {
-				const cookieHeader = await convex.fetchMutation(api.auth.signIn, input);
+				// const cookieHeader = await convex.fetchMutation(api.auth.signIn, input);
 				// return setCookies(cookies, cookieHeader);
 				return true;
 			} catch (error) {
