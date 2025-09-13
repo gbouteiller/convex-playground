@@ -22,6 +22,8 @@ export const server = {
 	signOut: defineAction({
 		accept: "form",
 		handler: async (_, { cookies, locals: { convex } }) => {
+			console.log("ACTION - signOut");
+			return true;
 			// const token = await getToken(cookies);
 			// await convex.fetchMutation(api.auth.signOut, {}, { token });
 			// return deleteCookies(cookies);
