@@ -1,7 +1,7 @@
 import type { ConvexHttpClient } from "convex/browser";
 import type { Preloaded } from "convex/react";
-import { type FunctionReference, getFunctionName } from "convex/server";
-import { convexToJson } from "convex/values";
+import { type FunctionReference, type FunctionReturnType, getFunctionName } from "convex/server";
+import { convexToJson, jsonToConvex } from "convex/values";
 
 export async function preloadQuery<Q extends FunctionReference<"query">>(
 	convex: ConvexHttpClient,
@@ -15,4 +15,8 @@ export async function preloadQuery<Q extends FunctionReference<"query">>(
 		_valueJSON: convexToJson(value),
 	};
 	return preloaded as any;
+}
+
+export function preloadedQueryResult<Query extends FunctionReference<"query">>(preloaded: Preloaded<Query>): FunctionReturnType<Query> {
+	return jsonToConvex(preloaded._valueJSON);
 }

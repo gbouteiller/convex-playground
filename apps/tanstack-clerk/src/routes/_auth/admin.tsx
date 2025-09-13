@@ -4,15 +4,14 @@ import { api } from "@cvx/clerk/convex/_generated/api";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getWebRequest } from "@tanstack/react-start/server";
-import { usePreloadedQuery } from "convex/react";
+import { Authenticated, AuthLoading, usePreloadedQuery } from "convex/react";
 import { Button } from "@/components/ui/button";
-import { preloadQuery } from "@/lib/convex";
+import { preloadedQueryResult, preloadQuery } from "@/lib/convex";
 
 // SERVER **********************************************************************************************************************************
 const authStateFn = createServerFn({ method: "GET" }).handler(async () => {
 	const request = getWebRequest();
 	const auth = await getAuth(request);
-	console.log("admin authStateFn", auth.isAuthenticated, request.url);
 	if (!auth.isAuthenticated) throw redirect({ to: "/signin/$" });
 	const token = await auth.getToken({ template: "convex" });
 	if (!token) throw redirect({ to: "/signin/$" });
@@ -33,10 +32,15 @@ export const Route = createFileRoute("/_auth/admin")({
 function AdminPage() {
 	const preloaded = Route.useLoaderData();
 	const email = usePreloadedQuery(preloaded);
+	const preloadedEmail = preloadedQueryResult(preloaded);
 
 	return (
 		<div className="flex flex-col gap-2">
 			<div>Email : {email}</div>
+			<div>
+				Email hacked : <Authenticated>{email}</Authenticated>
+				<AuthLoading>{preloadedEmail}</AuthLoading>
+			</div>
 			<SignOutButton>
 				<Button variant="secondary" className="cursor-pointer">
 					Sign out
