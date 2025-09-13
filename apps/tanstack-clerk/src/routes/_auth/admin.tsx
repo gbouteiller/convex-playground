@@ -10,10 +10,12 @@ import { preloadQuery } from "@/lib/convex";
 
 // SERVER **********************************************************************************************************************************
 const authStateFn = createServerFn({ method: "GET" }).handler(async () => {
-	const auth = await getAuth(getWebRequest());
-	if (!auth.isAuthenticated) throw redirect({ to: "/signin" });
+	const request = getWebRequest();
+	const auth = await getAuth(request);
+	console.log("admin authStateFn", auth.isAuthenticated, request.url);
+	if (!auth.isAuthenticated) throw redirect({ to: "/signin/$" });
 	const token = await auth.getToken({ template: "convex" });
-	if (!token) throw redirect({ to: "/signin" });
+	if (!token) throw redirect({ to: "/signin/$" });
 	return { token };
 });
 

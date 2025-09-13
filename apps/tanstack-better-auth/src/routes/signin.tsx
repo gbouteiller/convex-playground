@@ -1,8 +1,8 @@
 import { authClient } from "@cvx/better-auth/auth/client";
-import type { ErrorContext } from "better-auth/react";
 import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { getCookie } from "@tanstack/react-start/server";
+import type { ErrorContext } from "better-auth/react";
 import { type FormEvent, useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

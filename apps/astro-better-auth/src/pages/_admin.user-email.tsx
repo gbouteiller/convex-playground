@@ -2,7 +2,7 @@
 
 import type { api } from "@cvx/better-auth/convex/_generated/api";
 import { type Preloaded, usePreloadedQuery } from "convex/react";
-import { withConvex } from "@/lib/convex";
+import { withConvex } from "@/lib/convex/provider";
 
 // ROOT ************************************************************************************************************************************
 export const UserEmail = withConvex(({ preloaded }: UserEmailProps) => {

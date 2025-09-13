@@ -9,7 +9,7 @@ import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
 import type { ConvexQueryClient } from "@convex-dev/react-query";
 import { authClient } from "@cvx/better-auth/auth/client";
 import type { QueryClient } from "@tanstack/react-query";
-import { ThemeProvider } from "@/lib/theme";
+// import { ThemeProvider } from "@/lib/theme";
 
 // ROUTE ***********************************************************************************************************************************
 export const Route = createRootRouteWithContext<{
@@ -42,19 +42,19 @@ function RootLayout() {
 					<HeadContent />
 				</head>
 				<body>
-					<ThemeProvider>
-						<header className="p-2 border-b-1">
-							<Button variant="ghost">
-								<Link to="/">Home</Link>
-							</Button>
-							<Button variant="ghost">
-								<Link to="/admin">Admin</Link>
-							</Button>
-						</header>
-						<main className="p-10">
-							<Outlet />
-						</main>
-					</ThemeProvider>
+					{/* <ThemeProvider> */}
+					<header className="p-2 border-b-1">
+						<Button variant="ghost">
+							<Link to="/">Home</Link>
+						</Button>
+						<Button variant="ghost">
+							<Link to="/admin">Admin</Link>
+						</Button>
+					</header>
+					<main className="p-10">
+						<Outlet />
+					</main>
+					{/* </ThemeProvider> */}
 					<Scripts />
 				</body>
 			</html>

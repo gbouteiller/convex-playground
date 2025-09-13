@@ -12,8 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
-import { Route as AuthSigninRouteImport } from './routes/_auth/signin'
 import { Route as AuthAdminRouteImport } from './routes/_auth/admin'
+import { Route as AuthSigninSplatRouteImport } from './routes/_auth/signin.$'
 
 const PublicRoute = PublicRouteImport.update({
   id: '/_public',
@@ -28,47 +28,47 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PublicRoute,
 } as any)
-const AuthSigninRoute = AuthSigninRouteImport.update({
-  id: '/signin',
-  path: '/signin',
-  getParentRoute: () => AuthRoute,
-} as any)
 const AuthAdminRoute = AuthAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => AuthRoute,
 } as any)
+const AuthSigninSplatRoute = AuthSigninSplatRouteImport.update({
+  id: '/signin/$',
+  path: '/signin/$',
+  getParentRoute: () => AuthRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/admin': typeof AuthAdminRoute
-  '/signin': typeof AuthSigninRoute
   '/': typeof PublicIndexRoute
+  '/signin/$': typeof AuthSigninSplatRoute
 }
 export interface FileRoutesByTo {
   '/admin': typeof AuthAdminRoute
-  '/signin': typeof AuthSigninRoute
   '/': typeof PublicIndexRoute
+  '/signin/$': typeof AuthSigninSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_auth': typeof AuthRouteWithChildren
   '/_public': typeof PublicRouteWithChildren
   '/_auth/admin': typeof AuthAdminRoute
-  '/_auth/signin': typeof AuthSigninRoute
   '/_public/': typeof PublicIndexRoute
+  '/_auth/signin/$': typeof AuthSigninSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/admin' | '/signin' | '/'
+  fullPaths: '/admin' | '/' | '/signin/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/admin' | '/signin' | '/'
+  to: '/admin' | '/' | '/signin/$'
   id:
     | '__root__'
     | '/_auth'
     | '/_public'
     | '/_auth/admin'
-    | '/_auth/signin'
     | '/_public/'
+    | '/_auth/signin/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -99,13 +99,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicRoute
     }
-    '/_auth/signin': {
-      id: '/_auth/signin'
-      path: '/signin'
-      fullPath: '/signin'
-      preLoaderRoute: typeof AuthSigninRouteImport
-      parentRoute: typeof AuthRoute
-    }
     '/_auth/admin': {
       id: '/_auth/admin'
       path: '/admin'
@@ -113,17 +106,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAdminRouteImport
       parentRoute: typeof AuthRoute
     }
+    '/_auth/signin/$': {
+      id: '/_auth/signin/$'
+      path: '/signin/$'
+      fullPath: '/signin/$'
+      preLoaderRoute: typeof AuthSigninSplatRouteImport
+      parentRoute: typeof AuthRoute
+    }
   }
 }
 
 interface AuthRouteChildren {
   AuthAdminRoute: typeof AuthAdminRoute
-  AuthSigninRoute: typeof AuthSigninRoute
+  AuthSigninSplatRoute: typeof AuthSigninSplatRoute
 }
 
 const AuthRouteChildren: AuthRouteChildren = {
   AuthAdminRoute: AuthAdminRoute,
-  AuthSigninRoute: AuthSigninRoute,
+  AuthSigninSplatRoute: AuthSigninSplatRoute,
 }
 
 const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)

@@ -14,13 +14,13 @@
 	"license": "ISC",
 	"packageManager": "pnpm@10.13.1",
 	"dependencies": {
-		"@clerk/tanstack-react-start": "^0.23.5",
+		"@clerk/tanstack-react-start": "^0.24.0",
 		"@cvx/clerk": "workspace:*",
 		"@fontsource/geist-sans": "^5.2.5",
 		"@radix-ui/react-slot": "^1.2.3",
 		"@tailwindcss/postcss": "^4.1.13",
 		"@tanstack/react-router": "^1.131.41",
-		"@tanstack/react-start": "^1.131.41",
+		"@tanstack/react-start": "^1.131.43",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"convex": "^1.27.0",
@@ -35,8 +35,8 @@
 		"zod": "^4.1.8"
 	},
 	"devDependencies": {
-		"@types/node": "^24.3.1",
-		"@types/react": "^19.1.12",
+		"@types/node": "^24.3.3",
+		"@types/react": "^19.1.13",
 		"@types/react-dom": "^19.1.9",
 		"@vitejs/plugin-react": "^5.0.2",
 		"tw-animate-css": "^1.3.8",

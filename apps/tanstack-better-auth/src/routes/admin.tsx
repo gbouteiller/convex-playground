@@ -1,20 +1,10 @@
 import { authClient } from "@cvx/better-auth/auth/client";
 import { api } from "@cvx/better-auth/convex/_generated/api";
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { getCookie } from "@tanstack/react-start/server";
-import { usePreloadedQuery } from "convex/react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Authenticated, AuthLoading, usePreloadedQuery } from "convex/react";
 import { Button } from "@/components/ui/button";
-import { getCookieName } from "@/lib/auth-server-utils";
-import { preloadQuery } from "@/lib/convex";
-
-// SERVER **********************************************************************************************************************************
-const ensureAuthenticatedFn = createServerFn({ method: "GET" }).handler(async () => {
-	const sessionCookieName = await getCookieName();
-	const token = getCookie(sessionCookieName);
-	if (!token) throw redirect({ to: "/signin" });
-	return { token };
-});
+import { preloadedQueryResult, preloadQuery } from "@/lib/convex";
+import { ensureAuthenticatedFn } from "@/lib/functions";
 
 // ROUTE ***********************************************************************************************************************************
 export const Route = createFileRoute("/admin")({
@@ -30,6 +20,7 @@ export const Route = createFileRoute("/admin")({
 function AdminPage() {
 	const preloaded = Route.useLoaderData();
 	const email = usePreloadedQuery(preloaded);
+	const preloadedEmail = preloadedQueryResult(preloaded);
 
 	const navigate = useNavigate();
 	const handleClick = () => authClient.signOut({}, { onSuccess: () => navigate({ to: "/" }) });
@@ -37,9 +28,13 @@ function AdminPage() {
 	return (
 		<div className="flex flex-col gap-2">
 			<div>Email : {email}</div>
+			<div>
+				Email hacked : <Authenticated>{email}</Authenticated>
+				<AuthLoading>{preloadedEmail}</AuthLoading>
+			</div>
 			<Button variant="secondary" className="cursor-pointer" onClick={handleClick}>
 				Sign out
 			</Button>
 		</div>
-	);
+	)
 }
