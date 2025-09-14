@@ -13,7 +13,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.13.1",
   "dependencies": {
-    "@convex-dev/better-auth": "^0.7.18",
+    "@convex-dev/better-auth": "^0.8.0",
     "@convex-dev/react-query": "0.0.0-alpha.11",
     "@cvx/better-auth": "workspace:*",
     "@radix-ui/react-slot": "^1.2.3",
