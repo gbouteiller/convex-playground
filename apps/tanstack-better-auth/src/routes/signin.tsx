@@ -1,19 +1,12 @@
 import { authClient } from "@cvx/better-auth/auth/client";
-import { createFileRoute, redirect, useNavigate } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { getCookie } from "@tanstack/react-start/server";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import type { ErrorContext } from "better-auth/react";
 import { type FormEvent, useCallback, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { getCookieName } from "@/lib/auth-server-utils";
+import { ensureUnauthenticatedFn } from "@/lib/functions";
 
 // SERVER **********************************************************************************************************************************
-const ensureUnauthenticatedFn = createServerFn({ method: "GET" }).handler(async () => {
-	const sessionCookieName = await getCookieName();
-	const token = getCookie(sessionCookieName);
-	if (token) redirect({ to: "/admin" });
-});
 
 // ROUTE ***********************************************************************************************************************************
 export const Route = createFileRoute("/signin")({
