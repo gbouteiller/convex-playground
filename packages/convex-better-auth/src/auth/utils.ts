@@ -1,5 +1,5 @@
 import { JWT_COOKIE_NAME } from "@convex-dev/better-auth/plugins";
-import { CookieOptions } from "better-auth";
+import type { CookieOptions } from "better-auth";
 import { createCookieGetter, getCookies, parseSetCookieHeader } from "better-auth/cookies";
 import { ConvexHttpClient } from "convex/browser";
 import { createAuth } from "./server";
@@ -33,12 +33,14 @@ export const encodeCookieOptions = ({ httpOnly, maxAge, sameSite, ...rest }: Coo
 	samesite: sameSite,
 });
 
-// export const decodeCookieOptions = (options): CookieOptions => ({
-// 	...options,
-// 	httpOnly: options.httponly,
-// 	maxAge: options["max-age"],
-// 	sameSite: options.samesite,
-// });
+export const cookieOptionsFrom = (attrs: CookieAttributes): CookieOptions => ({
+	domain: attrs.domain,
+	httpOnly: attrs.httponly,
+	maxAge: attrs["max-age"],
+	path: attrs.path,
+	sameSite: attrs.samesite,
+	secure: attrs.secure,
+});
 
 export const getCookiesFromHeader = (cookieHeader: string | null) => {
 	if (!cookieHeader) return [];
@@ -46,13 +48,18 @@ export const getCookiesFromHeader = (cookieHeader: string | null) => {
 	return [...parsed.entries()].map(([key, value]) => ({
 		key,
 		value: decodeURIComponent(value.value),
-		options: {
-			sameSite: value.samesite,
-			secure: value.secure,
-			maxAge: value["max-age"],
-			httpOnly: value.httponly,
-			domain: value.domain,
-			path: value.path,
-		} as const,
+		options: encodeCookieOptions(cookieOptionsFrom(value)),
 	}));
 };
+
+interface CookieAttributes {
+	value: string;
+	"max-age"?: number;
+	expires?: Date;
+	domain?: string;
+	path?: string;
+	secure?: boolean;
+	httponly?: boolean;
+	samesite?: "strict" | "lax" | "none";
+	[key: string]: any;
+}
