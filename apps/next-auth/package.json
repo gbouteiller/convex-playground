@@ -14,7 +14,7 @@
   "dependencies": {
     "@auth/core": "0.40.0",
     "@convex-dev/auth": "^0.0.89",
-    "@hookform/resolvers": "^5.2.1",
+    "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.4",
     "@tailwindcss/postcss": "^4.1.13",
-    "@types/node": "^24.3.3",
+    "@types/node": "^24.4.0",
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
     "dotenv": "^17.2.2",

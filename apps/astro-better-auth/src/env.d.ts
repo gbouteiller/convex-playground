@@ -21,7 +21,7 @@ declare global {
 				preloadQuery: <Q extends FunctionReference<"query">>(
 					query: Q,
 					...args: ArgsAndOptions<Q, { token?: string }>
-				) => Promise<FunctionReturnType<Q>>;
+				) => Promise<Preloaded<Q>>;
 			};
 		}
 	}

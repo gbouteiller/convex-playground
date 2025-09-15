@@ -1,13 +1,15 @@
 /// <reference types="vite/client" />
 
+import { ConvexProviderWithAuthKit } from "@convex-dev/workos";
 import { createRootRouteWithContext, HeadContent, Link, Outlet, Scripts } from "@tanstack/react-router";
-import type { ConvexHttpClient } from "convex/browser";
-import { ConvexProviderWithAuth, type ConvexReactClient } from "convex/react";
-import { type PropsWithChildren, useCallback, useRef } from "react";
+import { AuthKitProvider, useAuth } from "@workos-inc/authkit-react";
+import { type ConvexReactClient } from "convex/react";
+import type { PropsWithChildren } from "react";
 import { Button } from "@/components/ui/button";
+import { envPublic } from "@/env.public";
 import appCss from "@/styles/app.css?url";
 
-export const Route = createRootRouteWithContext<{ convex: ConvexReactClient; convexServer: ConvexHttpClient }>()({
+export const Route = createRootRouteWithContext<{ convex: ConvexReactClient }>()({
 	head: () => ({
 		meta: [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, { title: "tanstack-workos" }],
 		links: [
@@ -35,40 +37,21 @@ function RootDocument({ children }: PropsWithChildren) {
 				<HeadContent />
 			</head>
 			<body>
-				<ConvexProviderWithAuth client={convex} useAuth={useAuthFromAuthKit}>
-					<header className="p-2 border-b-1">
-						<Button variant="ghost">
-							<Link to="/">Home</Link>
-						</Button>
-						<Button variant="ghost">
-							<Link to="/admin">Admin</Link>
-						</Button>
-					</header>
-					<main className="p-10">{children}</main>
-				</ConvexProviderWithAuth>
+				<AuthKitProvider clientId={envPublic.VITE_WORKOS_CLIENT_ID}>
+					<ConvexProviderWithAuthKit client={convex} useAuth={useAuth}>
+						<header className="p-2 border-b-1">
+							<Button variant="ghost">
+								<Link to="/">Home</Link>
+							</Button>
+							<Button variant="ghost">
+								<Link to="/admin">Admin</Link>
+							</Button>
+						</header>
+						<main className="p-10">{children}</main>
+					</ConvexProviderWithAuthKit>
+				</AuthKitProvider>
 				<Scripts />
 			</body>
 		</html>
 	);
-}
-
-function useAuthFromAuthKit() {
-	const { user, loading: isLoading } = useAuth();
-	const { accessToken, loading: tokenLoading, error: tokenError } = useAccessToken();
-	const loading = (isLoading ?? false) || (tokenLoading ?? false);
-	const authenticated = !!user && !!accessToken && !loading;
-
-	const stableAccessToken = useRef<string | null>(null);
-	if (accessToken && !tokenError) stableAccessToken.current = accessToken;
-
-	const fetchAccessToken = useCallback(async () => {
-		if (stableAccessToken.current && !tokenError) return stableAccessToken.current;
-		return null;
-	}, [tokenError]);
-
-	return {
-		isLoading: loading,
-		isAuthenticated: authenticated,
-		fetchAccessToken,
-	};
 }
