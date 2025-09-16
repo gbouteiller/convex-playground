@@ -4,7 +4,7 @@ import { betterAuth } from "better-auth";
 import { components } from "../convex/_generated/api";
 import type { DataModel } from "../convex/_generated/dataModel";
 
-const siteUrl = process.env.SITE_URL ?? import.meta.env.SITE_URL;
+const siteUrl = process.env.SITE_URL ?? import.meta?.env?.SITE_URL;
 
 export const authComponent = createClient<DataModel>(components.betterAuth);
 
