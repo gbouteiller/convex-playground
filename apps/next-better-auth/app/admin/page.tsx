@@ -1,14 +1,15 @@
-import { getToken } from "@convex-dev/better-auth/nextjs";
-import { createAuth } from "@cvx/better-auth/auth/server";
+import { getJWTCookieName } from "@cvx/better-auth/auth/utils";
 import { api } from "@cvx/better-auth/convex/_generated/api";
 import { fetchQuery, preloadQuery } from "convex/nextjs";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { SignOut } from "./sign-out";
 import { UserEmail } from "./user-email";
 
 // ROOT ************************************************************************************************************************************
 export default async function AdminPage() {
-	const token = await getToken(createAuth);
+	const cookieStore = await cookies();
+	const token = cookieStore.get(getJWTCookieName())?.value;
 	if (!token) redirect("/signin");
 
 	const isAuthenticated = await fetchQuery(api.auth.isAuthenticated, {}, { token });

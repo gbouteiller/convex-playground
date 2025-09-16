@@ -4,7 +4,7 @@ import { createCookieGetter, getCookies, parseSetCookieHeader } from "better-aut
 import { ConvexHttpClient } from "convex/browser";
 import { createAuth } from "./server";
 
-export const authOptions = () => createAuth({} as any).options;
+export const authOptions = () => createAuth({} as any, { optionsOnly: true }).options;
 
 export const getCookieInfos = (cookieName: string) => {
 	const { attributes: options, name } = createCookieGetter(authOptions())(cookieName);
