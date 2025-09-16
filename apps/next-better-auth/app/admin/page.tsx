@@ -1,15 +1,15 @@
-import { getJWTCookieName } from "@cvx/better-auth/auth/utils";
 import { api } from "@cvx/better-auth/convex/_generated/api";
 import { fetchQuery, preloadQuery } from "convex/nextjs";
-import { cookies } from "next/headers";
+import Form from "next/form";
 import { redirect } from "next/navigation";
-import { SignOut } from "./sign-out";
+import { Button } from "@/components/ui/button";
+import { getJWTToken } from "@/lib/auth/utils";
+import { signOut } from "./actions";
 import { UserEmail } from "./user-email";
 
 // ROOT ************************************************************************************************************************************
 export default async function AdminPage() {
-	const cookieStore = await cookies();
-	const token = cookieStore.get(getJWTCookieName())?.value;
+	const token = await getJWTToken();
 	if (!token) redirect("/signin");
 
 	const isAuthenticated = await fetchQuery(api.auth.isAuthenticated, {}, { token });
@@ -20,7 +20,11 @@ export default async function AdminPage() {
 	return (
 		<div className="flex flex-col gap-2">
 			<UserEmail preloaded={preloaded} />
-			<SignOut />
+			<Form action={signOut} className="flex">
+				<Button variant="secondary" className="w-full cursor-pointer">
+					Sign out
+				</Button>
+			</Form>
 		</div>
 	);
 }
