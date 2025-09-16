@@ -10,7 +10,10 @@ const query = convexQuery(api.auth.getUserEmail, {});
 
 // ROUTE ***********************************************************************************************************************************
 export const Route = createFileRoute("/admin")({
-	beforeLoad: async () => await ensureAuthenticatedFn(),
+	beforeLoad: async ({ context: { convexQueryClient } }) => {
+		const { token } = await ensureAuthenticatedFn();
+		convexQueryClient.serverHttpClient?.setAuth(token);
+	},
 	component: AdminPage,
 	loader: async ({ context: { convexQueryClient } }) => await convexQueryClient.queryClient.ensureQueryData(query),
 });
