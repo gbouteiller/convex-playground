@@ -10,9 +10,11 @@ import { UserEmail } from "./user-email";
 // ROOT ************************************************************************************************************************************
 export default async function AdminPage() {
 	const token = await getJWTToken();
+	console.log("token", token);
 	if (!token) redirect("/signin");
 
 	const isAuthenticated = await fetchQuery(api.auth.isAuthenticated, {}, { token });
+	console.log("isAuthenticated", isAuthenticated);
 	if (!isAuthenticated) redirect("/signin");
 
 	const preloaded = await preloadQuery(api.auth.getUserEmail, {}, { token });
