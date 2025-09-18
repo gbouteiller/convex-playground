@@ -3,7 +3,7 @@
 import { AuthKitProvider, useAccessToken, useAuth } from "@workos-inc/authkit-nextjs/components";
 import { ConvexProviderWithAuth, ConvexReactClient } from "convex/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { type ComponentProps, useCallback, useRef } from "react";
+import { type ComponentProps, useCallback } from "react";
 
 if (!process.env.NEXT_PUBLIC_CONVEX_URL) throw new Error("Missing env var");
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL, { expectAuth: true, verbose: true });
@@ -22,21 +22,23 @@ export function Providers({ children, ...props }: ComponentProps<typeof NextThem
 
 function useAuthFromAuthKit() {
 	const { user, loading: isLoading } = useAuth();
-	const { accessToken, loading: tokenLoading, error: tokenError } = useAccessToken();
-	const loading = (isLoading ?? false) || (tokenLoading ?? false);
-	const authenticated = !!user && !!accessToken && !loading;
+	const { getAccessToken, refresh } = useAccessToken();
 
-	const stableAccessToken = useRef<string | null>(null);
-	if (accessToken && !tokenError) stableAccessToken.current = accessToken;
+	const isAuthenticated = !!user;
 
-	const fetchAccessToken = useCallback(async () => {
-		if (stableAccessToken.current && !tokenError) return stableAccessToken.current;
-		return null;
-	}, [tokenError]);
+	const fetchAccessToken = useCallback(
+		async ({ forceRefreshToken }: { forceRefreshToken?: boolean } = {}) => {
+			if (!user) return null;
+			try {
+				if (forceRefreshToken) return (await refresh()) ?? null;
+				return (await getAccessToken()) ?? null;
+			} catch (error) {
+				console.error("Failed to get access token:", error);
+				return null;
+			}
+		},
+		[user, refresh, getAccessToken],
+	);
 
-	return {
-		isLoading: loading,
-		isAuthenticated: authenticated,
-		fetchAccessToken,
-	};
+	return { fetchAccessToken, isAuthenticated, isLoading };
 }
