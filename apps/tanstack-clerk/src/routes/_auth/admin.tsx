@@ -1,32 +1,17 @@
 import { SignOutButton } from "@clerk/tanstack-react-start";
-import { getAuth } from "@clerk/tanstack-react-start/server";
-import { api } from "@cvx/clerk/convex/_generated/api";
-import { createFileRoute, redirect } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { getWebRequest } from "@tanstack/react-start/server";
+import { createFileRoute } from "@tanstack/react-router";
 import { Authenticated, AuthLoading, usePreloadedQuery } from "convex/react";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { preloadedQueryResult, preloadQuery } from "@/lib/convex";
-
-// SERVER **********************************************************************************************************************************
-const authStateFn = createServerFn({ method: "GET" }).handler(async () => {
-	const request = getWebRequest();
-	const auth = await getAuth(request);
-	if (!auth.isAuthenticated) throw redirect({ to: "/signin/$" });
-	const token = await auth.getToken({ template: "convex" });
-	if (!token) throw redirect({ to: "/signin/$" });
-	return { token };
-});
+import { ensureAuthenticatedFn } from "@/lib/auth/functions";
+import { preloadUserEmailFn } from "@/lib/convex/functions";
+import { preloadedQueryResult } from "@/lib/convex/utils";
 
 // ROUTE ***********************************************************************************************************************************
 export const Route = createFileRoute("/_auth/admin")({
-	beforeLoad: async ({ context: { convexServer } }) => {
-		const { token } = await authStateFn();
-		convexServer.setAuth(token);
-	},
+	beforeLoad: async () => await ensureAuthenticatedFn(),
 	component: AdminPage,
-	loader: async ({ context: { convexServer } }) => await preloadQuery(convexServer, api.auth.getUserEmail),
+	loader: async () => await preloadUserEmailFn(),
 });
 
 // ROOT ************************************************************************************************************************************

@@ -3,7 +3,9 @@ import { redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import z from "zod";
 import { deleteCookies, setCookies } from "../auth/utils";
-import { getConvexHttpClient, preloadQuery } from "./utils";
+import { fetchQuery, getConvexHttpClient, preloadQuery } from "./utils";
+
+export const fetchPageHomeFn = createServerFn({ method: "GET" }).handler(async () => fetchQuery(api.pages.home));
 
 export const preloadUserEmailFn = createServerFn({ method: "GET" }).handler(async () => preloadQuery(api.auth.getUserEmail));
 

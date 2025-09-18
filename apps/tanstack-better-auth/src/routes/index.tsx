@@ -1,10 +1,10 @@
-import { api } from "@cvx/better-auth/convex/_generated/api";
 import { createFileRoute } from "@tanstack/react-router";
+import { fetchPageHomeFn } from "@/lib/convex/functions";
 
 // ROUTE ***********************************************************************************************************************************
 export const Route = createFileRoute("/")({
 	component: HomePage,
-	loader: async ({ context: { convexServer } }) => await convexServer.query(api.pages.home),
+	loader: async () => await fetchPageHomeFn(),
 });
 
 // ROOT ************************************************************************************************************************************

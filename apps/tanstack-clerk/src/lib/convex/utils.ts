@@ -1,4 +1,4 @@
-import { getConvexHttpClient as nativeGetConvexHttpClient } from "@cvx/better-auth/auth/utils";
+import { ConvexHttpClient } from "convex/browser";
 import type { Preloaded } from "convex/react";
 import { type FunctionReference, type FunctionReturnType, getFunctionName } from "convex/server";
 import { convexToJson, jsonToConvex } from "convex/values";
@@ -6,7 +6,7 @@ import { envPublic } from "@/env.public";
 import { getJWTToken } from "../auth/utils";
 
 export async function fetchQuery<Q extends FunctionReference<"query">>(query: Q, args: Q["_args"] = {}): Promise<FunctionReturnType<Q>> {
-	const convex = getConvexHttpClient();
+	const convex = await getConvexHttpClient();
 	return convex.query(query, args);
 }
 
@@ -20,7 +20,15 @@ export async function preloadQuery<Q extends FunctionReference<"query">>(query: 
 	return preloaded;
 }
 
-export const preloadedQueryResult = <Query extends FunctionReference<"query">>(preloaded: Preloaded<Query>): FunctionReturnType<Query> =>
-	jsonToConvex(preloaded._valueJSON);
+export function preloadedQueryResult<Query extends FunctionReference<"query">>(preloaded: Preloaded<Query>): FunctionReturnType<Query> {
+	return jsonToConvex(preloaded._valueJSON);
+}
 
-export const getConvexHttpClient = () => nativeGetConvexHttpClient(envPublic.VITE_CONVEX_URL, getJWTToken());
+export const getConvexHttpClient = async () => {
+	const client = new ConvexHttpClient(envPublic.VITE_CONVEX_URL);
+	const token = await getJWTToken();
+	if (token) client.setAuth(token);
+	return client;
+};
+
+// nativeGetConvexHttpClient(envPublic.VITE_CONVEX_URL, getJWTToken());

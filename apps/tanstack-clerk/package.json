@@ -18,6 +18,7 @@
 		"@cvx/clerk": "workspace:*",
 		"@fontsource/geist-sans": "^5.2.5",
 		"@radix-ui/react-slot": "^1.2.3",
+		"@t3-oss/env-core": "^0.13.8",
 		"@tailwindcss/postcss": "^4.1.13",
 		"@tanstack/react-router": "^1.131.44",
 		"@tanstack/react-start": "^1.131.44",
