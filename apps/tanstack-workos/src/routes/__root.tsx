@@ -3,7 +3,7 @@
 import { ConvexProviderWithAuthKit } from "@convex-dev/workos";
 import { createRootRouteWithContext, HeadContent, Link, Outlet, Scripts } from "@tanstack/react-router";
 import { AuthKitProvider, useAuth } from "@workos-inc/authkit-react";
-import { type ConvexReactClient } from "convex/react";
+import type { ConvexReactClient } from "convex/react";
 import type { PropsWithChildren } from "react";
 import { Button } from "@/components/ui/button";
 import { envPublic } from "@/env.public";
