@@ -6,7 +6,9 @@ import { envPublic } from "@/env.public";
 import { getJWTToken } from "../auth/utils";
 
 export async function fetchQuery<Q extends FunctionReference<"query">>(query: Q, args: Q["_args"] = {}): Promise<FunctionReturnType<Q>> {
-	const convex = await getConvexHttpClient();
+	const convex = new ConvexHttpClient(envPublic.VITE_CONVEX_URL);
+	const token = await getJWTToken();
+	if (token) convex.setAuth(token);
 	return convex.query(query, args);
 }
 
@@ -19,10 +21,3 @@ export async function preloadQuery<Q extends FunctionReference<"query">>(query: 
 	} as Preloaded<Q>;
 	return preloaded;
 }
-
-export const getConvexHttpClient = async () => {
-	const client = new ConvexHttpClient(envPublic.VITE_CONVEX_URL);
-	const token = await getJWTToken();
-	if (token) client.setAuth(token);
-	return client;
-};
