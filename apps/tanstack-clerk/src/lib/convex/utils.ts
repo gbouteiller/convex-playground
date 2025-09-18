@@ -1,7 +1,7 @@
 import { ConvexHttpClient } from "convex/browser";
 import type { Preloaded } from "convex/react";
 import { type FunctionReference, type FunctionReturnType, getFunctionName } from "convex/server";
-import { convexToJson, jsonToConvex } from "convex/values";
+import { convexToJson } from "convex/values";
 import { envPublic } from "@/env.public";
 import { getJWTToken } from "../auth/utils";
 
@@ -20,15 +20,9 @@ export async function preloadQuery<Q extends FunctionReference<"query">>(query: 
 	return preloaded;
 }
 
-export function preloadedQueryResult<Query extends FunctionReference<"query">>(preloaded: Preloaded<Query>): FunctionReturnType<Query> {
-	return jsonToConvex(preloaded._valueJSON);
-}
-
 export const getConvexHttpClient = async () => {
 	const client = new ConvexHttpClient(envPublic.VITE_CONVEX_URL);
 	const token = await getJWTToken();
 	if (token) client.setAuth(token);
 	return client;
 };
-
-// nativeGetConvexHttpClient(envPublic.VITE_CONVEX_URL, getJWTToken());
