@@ -1,6 +1,6 @@
 import { redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { getJWTToken } from "./utils";
+import { getJWTToken } from "./server";
 
 export const ensureAuthenticatedFn = createServerFn({ method: "GET" }).handler(async () => {
 	const token = getJWTToken();
