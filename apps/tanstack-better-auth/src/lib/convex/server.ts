@@ -5,7 +5,9 @@ import type { Preloaded } from "convex/react";
 import { type FunctionReference, getFunctionName } from "convex/server";
 import { convexToJson } from "convex/values";
 
-export const { fetchQuery, fetchMutation, fetchAction } = await setupFetchClient(createAuth, getCookie);
+export const { fetchQuery, fetchMutation, fetchAction } = setupFetchClient(createAuth, getCookie) as unknown as Awaited<
+	ReturnType<typeof setupFetchClient>
+>;
 
 export async function preloadQuery<Q extends FunctionReference<"query">>(query: Q, args: Q["_args"] = {}): Promise<Preloaded<Q>> {
 	const value = await fetchQuery(query, args);
