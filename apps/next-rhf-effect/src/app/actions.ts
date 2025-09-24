@@ -1,6 +1,6 @@
 import { type ActionState, type SignInValues, zSignInValues } from "./utils";
 
-export const signInAction = async (_: ActionState<SignInValues> | undefined, formData: FormData): ActionState<SignInValues> => {
+export const signInAction = async (_: ActionState<SignInValues> | undefined, formData: FormData): Promise<ActionState<SignInValues>> => {
 	await new Promise((resolve) => setTimeout(resolve, 1000));
 	const values = Object.fromEntries(formData.entries()) as SignInValues;
 	const parsed = zSignInValues.safeParse(values);
