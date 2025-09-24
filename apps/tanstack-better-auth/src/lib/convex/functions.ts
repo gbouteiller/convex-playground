@@ -10,7 +10,7 @@ export const fetchPageHomeFn = createServerFn({ method: "GET" }).handler(async (
 export const preloadUserEmailFn = createServerFn({ method: "GET" }).handler(async () => preloadQuery(api.auth.getUserEmail));
 
 export const signInFn = createServerFn({ method: "POST" })
-	.validator((data: FormData) => z.object({ email: z.email(), password: z.string() }).parse(Object.fromEntries(data.entries())))
+	.inputValidator((data: FormData) => z.object({ email: z.email(), password: z.string() }).parse(Object.fromEntries(data.entries())))
 	.handler(async ({ data }) => {
 		const cookieHeader = await fetchMutation(api.auth.signIn, data);
 		setCookies(cookieHeader);

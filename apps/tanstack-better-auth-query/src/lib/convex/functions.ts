@@ -6,7 +6,7 @@ import { deleteCookies, setCookies } from "../auth/server";
 import { fetchMutation } from "./server";
 
 export const signInFn = createServerFn({ method: "POST" })
-	.validator((data: FormData) => z.object({ email: z.email(), password: z.string() }).parse(Object.fromEntries(data.entries())))
+	.inputValidator((data: FormData) => z.object({ email: z.email(), password: z.string() }).parse(Object.fromEntries(data.entries())))
 	.handler(async ({ data }) => {
 		const cookieHeader = await fetchMutation(api.auth.signIn, data);
 		setCookies(cookieHeader);

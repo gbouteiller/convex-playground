@@ -1,10 +1,10 @@
 import { createClerkHandler } from "@clerk/tanstack-react-start/server";
 import { createStartHandler, defaultStreamHandler, defineHandlerCallback } from "@tanstack/react-start/server";
-import { createRouter } from "./router";
+import { getRouter } from "./router";
 
 const handlerFactory = createClerkHandler(
 	createStartHandler({
-		createRouter,
+		getRouter,
 	}),
 	{ signInForceRedirectUrl: "/admin" },
 );
