@@ -10,7 +10,7 @@
 	},
 	"dependencies": {
 		"@astrojs/react": "^4.3.1",
-		"@astrojs/vercel": "^8.2.7",
+		"@astrojs/vercel": "^8.2.8",
 		"@convex-dev/workos": "^0.0.1",
 		"@cvx/workos": "workspace:*",
 		"@hookform/resolvers": "^5.2.2",
@@ -21,10 +21,10 @@
 		"@types/react-dom": "^19.1.9",
 		"@workos-inc/authkit-react": "^0.13.0",
 		"@workos-inc/node": "^7.70.0",
-		"astro": "^5.13.8",
+		"astro": "^5.13.10",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
-		"convex": "^1.27.1",
+		"convex": "^1.27.3",
 		"iron-session": "^8.0.4",
 		"jose": "^6.1.0",
 		"lucide-react": "^0.544.0",
@@ -32,14 +32,14 @@
 		"picomatch": "^4.0.3",
 		"react": "^19.1.1",
 		"react-dom": "^19.1.1",
-		"react-hook-form": "^7.62.0",
+		"react-hook-form": "^7.63.0",
 		"sonner": "^2.0.7",
 		"tailwind-merge": "^3.3.1",
 		"tailwindcss": "^4.1.13",
-		"zod": "^4.1.9"
+		"zod": "^4.1.11"
 	},
 	"devDependencies": {
 		"@types/picomatch": "^4.0.2",
-		"tw-animate-css": "^1.3.8"
+		"tw-animate-css": "^1.4.0"
 	}
 }
