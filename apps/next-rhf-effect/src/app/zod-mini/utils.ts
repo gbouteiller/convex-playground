@@ -1,7 +1,7 @@
-import * as z from "zod/mini";
+import { email, minLength, object, string } from "zod/mini";
 
 // SCHEMAS ---------------------------------------------------------------------------------------------------------------------------------
-export const zSignInValues = z.object({
-	email: z.email(),
-	password: z.string().check(z.minLength(3)),
+export const zSignInValues = object({
+	email: email(),
+	password: string().check(minLength(3)),
 });
