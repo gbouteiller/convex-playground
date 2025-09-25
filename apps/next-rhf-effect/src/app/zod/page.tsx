@@ -1,4 +1,6 @@
-import { ZodForm } from "./page.form";
+import dynamic from "next/dynamic";
+
+const ZodForm = dynamic(() => import("./page.form"));
 
 // ROOT ------------------------------------------------------------------------------------------------------------------------------------
 export default function ZodPage() {

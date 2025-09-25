@@ -1,4 +1,6 @@
-import { ZodMiniForm } from "./page.form";
+import dynamic from "next/dynamic";
+
+const ZodMiniForm = dynamic(() => import("./page.form"));
 
 // ROOT ------------------------------------------------------------------------------------------------------------------------------------
 export default function ZodMiniPage() {

@@ -1,4 +1,6 @@
-import { EffectForm } from "./page.form";
+import dynamic from "next/dynamic";
+
+const EffectForm = dynamic(() => import("./page.form"));
 
 // ROOT ------------------------------------------------------------------------------------------------------------------------------------
 export default function EffectPage() {

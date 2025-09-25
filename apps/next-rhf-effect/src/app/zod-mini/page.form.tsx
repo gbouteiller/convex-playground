@@ -6,4 +6,5 @@ import { signInAction } from "./actions";
 import { zSignInValues } from "./utils";
 
 // ROOT ------------------------------------------------------------------------------------------------------------------------------------
-export const ZodMiniForm = () => <RhfForm action={signInAction} resolver={zodResolver(zSignInValues)} />;
+const ZodMiniForm = () => <RhfForm action={signInAction} resolver={zodResolver(zSignInValues)} />;
+export default ZodMiniForm;

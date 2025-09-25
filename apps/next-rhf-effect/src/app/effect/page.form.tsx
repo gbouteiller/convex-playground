@@ -6,4 +6,5 @@ import { signInAction } from "./actions";
 import { sSignInValues } from "./utils";
 
 // ROOT ------------------------------------------------------------------------------------------------------------------------------------
-export const EffectForm = () => <RhfForm action={signInAction} resolver={effectTsResolver(sSignInValues)} />;
+const EffectForm = () => <RhfForm action={signInAction} resolver={effectTsResolver(sSignInValues)} />;
+export default EffectForm;
