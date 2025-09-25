@@ -1,3 +1,5 @@
+"use server";
+
 import type { ActionState, SignInValues } from "@/components/rhf";
 import { zSignInValues } from "./utils";
 

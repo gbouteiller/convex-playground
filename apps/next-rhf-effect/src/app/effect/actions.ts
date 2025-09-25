@@ -1,3 +1,5 @@
+"use server";
+
 import { Either, Schema as S } from "effect";
 import type { ActionState, SignInValues } from "@/components/rhf";
 import { sSignInValues } from "./utils";
