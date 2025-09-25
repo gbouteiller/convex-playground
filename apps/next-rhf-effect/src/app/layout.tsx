@@ -19,16 +19,24 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 				<Providers attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
 					<nav className="p-2 flex gap-2 items-center justify-center">
 						<Button asChild variant="ghost">
-							<Link href="/">Home</Link>
+							<Link href="/" prefetch={false}>
+								Home
+							</Link>
 						</Button>
 						<Button asChild variant="ghost">
-							<Link href="/zod">Zod</Link>
+							<Link href="/zod" prefetch={false}>
+								Zod
+							</Link>
 						</Button>
 						<Button asChild variant="ghost">
-							<Link href="/zod-mini">Zod Mini</Link>
+							<Link href="/zod-mini" prefetch={false}>
+								Zod Mini
+							</Link>
 						</Button>
 						<Button asChild variant="ghost">
-							<Link href="/effect">Effect</Link>
+							<Link href="/effect" prefetch={false}>
+								Effect
+							</Link>
 						</Button>
 					</nav>
 					<div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">{children}</div>
