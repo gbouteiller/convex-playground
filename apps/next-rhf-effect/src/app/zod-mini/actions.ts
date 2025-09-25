@@ -1,4 +1,5 @@
-import { type ActionState, type SignInValues, zSignInValues } from "./utils";
+import type { ActionState, SignInValues } from "@/components/rhf";
+import { zSignInValues } from "./utils";
 
 export const signInAction = async (_: ActionState<SignInValues> | undefined, formData: FormData): Promise<ActionState<SignInValues>> => {
 	await new Promise((resolve) => setTimeout(resolve, 1000));

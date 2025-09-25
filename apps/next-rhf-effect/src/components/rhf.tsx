@@ -1,26 +1,24 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { LoaderCircleIcon, LogInIcon } from "lucide-react";
 import { type ComponentProps, useActionState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { type FieldErrors, type Resolver, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { signInAction } from "./actions";
-import { type SignInValues, signInDefaultValues, zSignInValues } from "./utils";
 
-export function HomeForm({ className, ...props }: ComponentProps<"div">) {
-	const [state, action, isPending] = useActionState(signInAction, undefined);
+// ROOT ------------------------------------------------------------------------------------------------------------------------------------
+export function RhfForm({ action, className, resolver, ...props }: RhfFormProps) {
+	const [state, formAction, isPending] = useActionState(action, undefined);
 
 	const form = useForm<SignInValues>({
-		defaultValues: state?.values ?? signInDefaultValues,
+		defaultValues: state?.values ?? { email: "", password: "" },
 		errors: state?.errors,
 		mode: "onTouched",
-		resolver: zodResolver(zSignInValues),
+		resolver,
 	});
 
 	useEffect(() => {
@@ -33,7 +31,7 @@ export function HomeForm({ className, ...props }: ComponentProps<"div">) {
 			<Card className="overflow-hidden p-0">
 				<CardContent className="p-0">
 					<Form {...form}>
-						<form action={action} onSubmit={form.formState.isValid ? undefined : form.handleSubmit(() => {})} className="p-6 md:p-8">
+						<form action={formAction} onSubmit={form.formState.isValid ? undefined : form.handleSubmit(() => {})} className="p-6 md:p-8">
 							<div className="flex flex-col gap-6">
 								<div className="flex flex-col items-center text-center">
 									<h1 className="text-2xl font-bold">Welcome back</h1>
@@ -77,3 +75,9 @@ export function HomeForm({ className, ...props }: ComponentProps<"div">) {
 		</div>
 	);
 }
+export type RhfFormProps = ComponentProps<"div"> & { action: Action; resolver: Resolver<SignInValues> };
+
+// TYPES -----------------------------------------------------------------------------------------------------------------------------------
+export type Action = (_: ActionState<SignInValues> | undefined, formData: FormData) => Promise<ActionState<SignInValues>>;
+export type ActionState<V> = { errors?: FieldErrors; message?: string; status: "success" | "failure"; values: V };
+export type SignInValues = { email: string; password: string };
