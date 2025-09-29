@@ -1,7 +1,7 @@
 import { getAuth } from "@clerk/tanstack-react-start/server";
 import { redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { getWebRequest } from "@tanstack/react-start/server";
+import { getRequest } from "@tanstack/react-start/server";
 import { getJWTToken } from "./utils";
 
 export const ensureAuthenticatedFn = createServerFn({ method: "GET" }).handler(async () => {
@@ -11,7 +11,7 @@ export const ensureAuthenticatedFn = createServerFn({ method: "GET" }).handler(a
 });
 
 export const ensureUnauthenticatedFn = createServerFn({ method: "GET" }).handler(async () => {
-	const request = getWebRequest();
+	const request = getRequest();
 	const auth = await getAuth(request);
 	if (auth.isAuthenticated) redirect({ to: "/admin" });
 });

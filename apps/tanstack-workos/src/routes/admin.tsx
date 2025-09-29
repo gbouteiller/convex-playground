@@ -1,19 +1,14 @@
-import { api } from "@cvx/workos/convex/_generated/api";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Authenticated, AuthLoading, usePreloadedQuery } from "convex/react";
 import { Button } from "@/components/ui/button";
-import { ensureAuthenticatedFn, getAccessTokenFn } from "@/lib/auth/functions";
-import { preloadQueryFn } from "@/lib/convex/functions";
-import { preloadedQueryResult } from "@/lib/convex/utils";
+import { ensureAuthenticatedFn, signoutFn } from "@/lib/auth/functions";
+import { preloadedQueryResult } from "@/lib/convex/client";
+import { preloadUserEmailFn } from "@/lib/convex/functions";
 
 export const Route = createFileRoute("/admin")({
-	beforeLoad: async () => {
-		await ensureAuthenticatedFn();
-		const token = await getAccessTokenFn();
-		return { token };
-	},
+	beforeLoad: async () => await ensureAuthenticatedFn(),
 	component: AdminPage,
-	loader: async ({ context: { token } }) => await preloadQueryFn({ data: { query: api.auth.getUserEmail, token } }),
+	loader: async () => await preloadUserEmailFn(),
 });
 
 function AdminPage() {
@@ -28,11 +23,14 @@ function AdminPage() {
 				Email hacked : <Authenticated>{email}</Authenticated>
 				<AuthLoading>{preloadedEmail}</AuthLoading>
 			</div>
-			<Button variant="secondary" className="cursor-pointer">
-				<Link to="/auth/signout" className="w-full">
+			<form method="post" action={signoutFn.url} className="flex">
+				<Button variant="secondary" className="cursor-pointer w-full">
+					{/* <Link to="/auth/signout" className="w-full">
 					Sign out
-				</Link>
-			</Button>
+				</Link> */}
+					Sign out
+				</Button>
+			</form>
 		</div>
 	);
 }

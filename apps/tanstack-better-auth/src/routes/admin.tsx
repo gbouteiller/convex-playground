@@ -1,20 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { usePreloadedQuery } from "convex/react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ensureAuthenticatedFn } from "@/lib/auth/functions";
+import { preloadedQueryResult } from "@/lib/convex/client";
 import { preloadUserEmailFn, signOutFn } from "@/lib/convex/functions";
 
-// ROUTE ***********************************************************************************************************************************
+// ROUTE -----------------------------------------------------------------------------------------------------------------------------------
 export const Route = createFileRoute("/admin")({
 	beforeLoad: async () => await ensureAuthenticatedFn(),
 	component: AdminPage,
 	loader: async () => await preloadUserEmailFn(),
 });
 
-// ROOT ************************************************************************************************************************************
+// ROOT ------------------------------------------------------------------------------------------------------------------------------------
 function AdminPage() {
 	const preloaded = Route.useLoaderData();
 	const email = usePreloadedQuery(preloaded);
+
+	useEffect(() => console.log(email, preloadedQueryResult(preloaded)), [email, preloaded]);
 
 	return (
 		<div className="flex flex-col gap-2">

@@ -1,12 +1,13 @@
-import { api } from "@cvx/workos/convex/_generated/api";
 import { createFileRoute } from "@tanstack/react-router";
-import { queryFn } from "@/lib/convex/functions";
+import { fetchPageHomeFn } from "@/lib/convex/functions";
 
+// ROUTE -----------------------------------------------------------------------------------------------------------------------------------
 export const Route = createFileRoute("/")({
 	component: HomePage,
-	loader: async () => await queryFn({ data: api.pages.home }),
+	loader: async () => await fetchPageHomeFn(),
 });
 
+// ROOT ------------------------------------------------------------------------------------------------------------------------------------
 function HomePage() {
 	const title = Route.useLoaderData();
 	return <div>{title}</div>;

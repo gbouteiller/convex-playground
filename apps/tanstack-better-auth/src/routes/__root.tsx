@@ -9,7 +9,7 @@ import appCss from "@/styles/app.css?url";
 import "@fontsource/geist-sans";
 import { ConvexBetterAuthProvider } from "@convex-dev/better-auth/react";
 
-// ROUTE ***********************************************************************************************************************************
+// ROUTE -----------------------------------------------------------------------------------------------------------------------------------
 export const Route = createRootRouteWithContext<{ convex: ConvexReactClient }>()({
 	head: () => ({
 		meta: [{ charSet: "utf-8" }, { name: "viewport", content: "width=device-width, initial-scale=1" }, { title: "tanstack-better-auth" }],
@@ -21,7 +21,7 @@ export const Route = createRootRouteWithContext<{ convex: ConvexReactClient }>()
 	component: RootLayout,
 });
 
-// ROOT ************************************************************************************************************************************
+// ROOT ------------------------------------------------------------------------------------------------------------------------------------
 function RootLayout() {
 	const { convex } = Route.useRouteContext();
 

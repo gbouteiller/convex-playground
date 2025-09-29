@@ -8,16 +8,11 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createServerRootRoute } from '@tanstack/react-start/server'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthSignoutRouteImport } from './routes/auth/signout'
 import { Route as AuthSigninRouteImport } from './routes/auth/signin'
-import { ServerRoute as AuthCallbackServerRouteImport } from './routes/auth/callback'
-
-const rootServerRouteImport = createServerRootRoute()
+import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
 
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
@@ -29,75 +24,49 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthSignoutRoute = AuthSignoutRouteImport.update({
-  id: '/auth/signout',
-  path: '/auth/signout',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AuthSigninRoute = AuthSigninRouteImport.update({
   id: '/auth/signin',
   path: '/auth/signin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthCallbackServerRoute = AuthCallbackServerRouteImport.update({
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
   id: '/auth/callback',
   path: '/auth/callback',
-  getParentRoute: () => rootServerRouteImport,
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/auth/signin': typeof AuthSigninRoute
-  '/auth/signout': typeof AuthSignoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/auth/signin': typeof AuthSigninRoute
-  '/auth/signout': typeof AuthSignoutRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/auth/signin': typeof AuthSigninRoute
-  '/auth/signout': typeof AuthSignoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/auth/signin' | '/auth/signout'
+  fullPaths: '/' | '/admin' | '/auth/callback' | '/auth/signin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/auth/signin' | '/auth/signout'
-  id: '__root__' | '/' | '/admin' | '/auth/signin' | '/auth/signout'
+  to: '/' | '/admin' | '/auth/callback' | '/auth/signin'
+  id: '__root__' | '/' | '/admin' | '/auth/callback' | '/auth/signin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
   AuthSigninRoute: typeof AuthSigninRoute
-  AuthSignoutRoute: typeof AuthSignoutRoute
-}
-export interface FileServerRoutesByFullPath {
-  '/auth/callback': typeof AuthCallbackServerRoute
-}
-export interface FileServerRoutesByTo {
-  '/auth/callback': typeof AuthCallbackServerRoute
-}
-export interface FileServerRoutesById {
-  __root__: typeof rootServerRouteImport
-  '/auth/callback': typeof AuthCallbackServerRoute
-}
-export interface FileServerRouteTypes {
-  fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths: '/auth/callback'
-  fileServerRoutesByTo: FileServerRoutesByTo
-  to: '/auth/callback'
-  id: '__root__' | '/auth/callback'
-  fileServerRoutesById: FileServerRoutesById
-}
-export interface RootServerRouteChildren {
-  AuthCallbackServerRoute: typeof AuthCallbackServerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,13 +85,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth/signout': {
-      id: '/auth/signout'
-      path: '/auth/signout'
-      fullPath: '/auth/signout'
-      preLoaderRoute: typeof AuthSignoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/auth/signin': {
       id: '/auth/signin'
       path: '/auth/signin'
@@ -130,16 +92,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSigninRouteImport
       parentRoute: typeof rootRouteImport
     }
-  }
-}
-declare module '@tanstack/react-start/server' {
-  interface ServerFileRoutesByPath {
     '/auth/callback': {
       id: '/auth/callback'
       path: '/auth/callback'
       fullPath: '/auth/callback'
-      preLoaderRoute: typeof AuthCallbackServerRouteImport
-      parentRoute: typeof rootServerRouteImport
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -147,15 +105,18 @@ declare module '@tanstack/react-start/server' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
   AuthSigninRoute: AuthSigninRoute,
-  AuthSignoutRoute: AuthSignoutRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-const rootServerRouteChildren: RootServerRouteChildren = {
-  AuthCallbackServerRoute: AuthCallbackServerRoute,
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
 }
-export const serverRouteTree = rootServerRouteImport
-  ._addFileChildren(rootServerRouteChildren)
-  ._addFileTypes<FileServerRouteTypes>()

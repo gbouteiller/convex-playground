@@ -1,12 +1,12 @@
-import { createRouter as createTanStackRouter } from "@tanstack/react-router";
+import { createRouter } from "@tanstack/react-router";
 import { ConvexReactClient } from "convex/react";
-import { envPublic } from "./env.public";
+import { clientEnv } from "./config/env.client";
 import { routeTree } from "./routeTree.gen";
 
-export function createRouter() {
-	const convex = new ConvexReactClient(envPublic.VITE_CONVEX_URL, { expectAuth: false, unsavedChangesWarning: false });
+export function getRouter() {
+	const convex = new ConvexReactClient(clientEnv.VITE_CONVEX_URL, { expectAuth: false, unsavedChangesWarning: false });
 
-	const router = createTanStackRouter({
+	const router = createRouter({
 		routeTree,
 		context: { convex },
 		scrollRestoration: true,
@@ -17,6 +17,6 @@ export function createRouter() {
 
 declare module "@tanstack/react-router" {
 	interface Register {
-		router: ReturnType<typeof createRouter>;
+		router: ReturnType<typeof getRouter>;
 	}
 }

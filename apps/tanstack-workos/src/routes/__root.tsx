@@ -4,9 +4,8 @@ import { ConvexProviderWithAuthKit } from "@convex-dev/workos";
 import { createRootRouteWithContext, HeadContent, Link, Outlet, Scripts } from "@tanstack/react-router";
 import { AuthKitProvider, useAuth } from "@workos-inc/authkit-react";
 import type { ConvexReactClient } from "convex/react";
-import type { PropsWithChildren } from "react";
 import { Button } from "@/components/ui/button";
-import { envPublic } from "@/env.public";
+import { clientEnv } from "@/config/env.client";
 import appCss from "@/styles/app.css?url";
 
 export const Route = createRootRouteWithContext<{ convex: ConvexReactClient }>()({
@@ -17,18 +16,10 @@ export const Route = createRootRouteWithContext<{ convex: ConvexReactClient }>()
 			{ rel: "icon", href: "/convex.svg" },
 		],
 	}),
-	component: RootComponent,
+	component: RootLayout,
 });
 
-function RootComponent() {
-	return (
-		<RootDocument>
-			<Outlet />
-		</RootDocument>
-	);
-}
-
-function RootDocument({ children }: PropsWithChildren) {
+function RootLayout() {
 	const { convex } = Route.useRouteContext();
 
 	return (
@@ -37,7 +28,7 @@ function RootDocument({ children }: PropsWithChildren) {
 				<HeadContent />
 			</head>
 			<body>
-				<AuthKitProvider clientId={envPublic.VITE_WORKOS_CLIENT_ID}>
+				<AuthKitProvider clientId={clientEnv.VITE_WORKOS_CLIENT_ID}>
 					<ConvexProviderWithAuthKit client={convex} useAuth={useAuth}>
 						<header className="p-2 border-b-1">
 							<Button variant="ghost">
@@ -47,7 +38,9 @@ function RootDocument({ children }: PropsWithChildren) {
 								<Link to="/admin">Admin</Link>
 							</Button>
 						</header>
-						<main className="p-10">{children}</main>
+						<main className="p-10">
+							<Outlet />
+						</main>
 					</ConvexProviderWithAuthKit>
 				</AuthKitProvider>
 				<Scripts />
