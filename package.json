@@ -3,6 +3,6 @@
 	"version": "0.0.1",
 	"private": true,
 	"devDependencies": {
-		"@biomejs/biome": "2.2.4"
+		"@biomejs/biome": "2.2.5"
 	}
 }
